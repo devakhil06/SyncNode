@@ -10,7 +10,8 @@ const workspaceRoutes = require("./routes/workspaceRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-
+const dashboardRoutes = require("./routes/dashboardRoutes");
+const searchRoutes = require("./routes/searchRoutes");
 // Connect Database
 connectDB();
 
@@ -23,7 +24,8 @@ app.use("/api/workspaces", workspaceRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/comments", commentRoutes);
-
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/search", searchRoutes);
 // Health Check Route
 app.get("/", (req, res) => {
     res.json({

@@ -73,6 +73,15 @@ exports.getTasks = async (req, res) => {
   try {
     const { projectId } = req.params;
 
+    const {
+      status,
+      priority,
+      search,
+      page = 1,
+      limit = 10,
+    } = req.query;
+
+    // Check if project exists
     const project = await Project.findById(projectId);
 
     if (!project) {
@@ -82,6 +91,7 @@ exports.getTasks = async (req, res) => {
       });
     }
 
+    // Check workspace membership
     const workspace = await Workspace.findById(project.workspace);
 
     const isMember = workspace.members.some(
@@ -95,13 +105,41 @@ exports.getTasks = async (req, res) => {
       });
     }
 
-    const tasks = await Task.find({ project: projectId })
+    // Build dynamic query
+    const query = {
+      project: projectId,
+    };
+
+    if (status) {
+      query.status = status;
+    }
+
+    if (priority) {
+      query.priority = priority;
+    }
+
+    if (search) {
+      query.title = {
+        $regex: search,
+        $options: "i",
+      };
+    }
+
+    // Fetch tasks
+    const tasks = await Task.find(query)
       .populate("assignedTo", "name email")
-      .populate("createdBy", "name email");
+      .populate("createdBy", "name email")
+      .sort({ createdAt: -1 })
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit));
+
+    const total = await Task.countDocuments(query);
 
     res.status(200).json({
       success: true,
-      count: tasks.length,
+      total,
+      page: Number(page),
+      pages: Math.ceil(total / Number(limit)),
       tasks,
     });
 

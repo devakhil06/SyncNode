@@ -55,12 +55,18 @@ exports.createProject = async (req, res) => {
     });
   }
 };
-
-//get all projects in a workspace 
+// Get all projects in a workspace with search and pagination
 exports.getProjects = async (req, res) => {
   try {
     const { workspaceId } = req.params;
 
+    const {
+      search,
+      page = 1,
+      limit = 10,
+    } = req.query;
+
+    // Check if workspace exists
     const workspace = await Workspace.findById(workspaceId);
 
     if (!workspace) {
@@ -70,6 +76,7 @@ exports.getProjects = async (req, res) => {
       });
     }
 
+    // Check workspace membership
     const isMember = workspace.members.some(
       (member) => member.toString() === req.user.id
     );
@@ -81,15 +88,45 @@ exports.getProjects = async (req, res) => {
       });
     }
 
-    const projects = await Project.find({
+    // Build query
+    const query = {
       workspace: workspaceId,
-    }).populate("owner", "name email");
+    };
+
+    if (search) {
+      query.$or = [
+        {
+          name: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          description: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ];
+    }
+
+    // Fetch projects
+    const projects = await Project.find(query)
+      .populate("owner", "name email")
+      .sort({ createdAt: -1 })
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit));
+
+    const total = await Project.countDocuments(query);
 
     res.status(200).json({
       success: true,
-      count: projects.length,
+      total,
+      page: Number(page),
+      pages: Math.ceil(total / Number(limit)),
       projects,
     });
+
   } catch (error) {
     console.error(error);
 
