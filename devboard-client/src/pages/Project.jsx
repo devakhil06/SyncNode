@@ -156,7 +156,7 @@ function Project() {
     <div className="stack">
       <header className="page-header">
         <div>
-          <h1>Kanban</h1>
+          <h1>Tasks</h1>
           <p>Move work through To Do, In Progress, and Done.</p>
         </div>
       </header>

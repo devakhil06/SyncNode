@@ -25,6 +25,7 @@ function Login() {
       const res = await api.post("/auth/login", form);
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login Successful");
 
@@ -37,7 +38,7 @@ function Login() {
   return (
     <div className="login-container">
       <form className="login-card" onSubmit={handleSubmit}>
-        <h1>DevBoard</h1>
+        <h1 className="auth-brand">SyncNode</h1>
 
         <input
           type="email"
@@ -55,9 +56,7 @@ function Login() {
           required
         />
 
-        <button type="submit">
-          Login
-        </button>
+        <button type="submit">Login</button>
 
         <p>
           Don't have an account?

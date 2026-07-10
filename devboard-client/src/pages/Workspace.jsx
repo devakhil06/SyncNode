@@ -143,6 +143,21 @@ function Workspace() {
     }
   };
 
+  const deleteProject = async (projectId) => {
+    const shouldDelete = confirm(
+      "Delete this project? This action cannot be undone."
+    );
+
+    if (!shouldDelete) return;
+
+    try {
+      await api.delete(`/projects/${projectId}`);
+      fetchProjects();
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to delete project");
+    }
+  };
+
   const ownerId = workspace?.owner?._id || workspace?.owner;
   const isOwner = ownerId === currentUser?.id;
 
@@ -171,7 +186,22 @@ function Workspace() {
                   key={project._id}
                   onClick={() => navigate(`/project/${project._id}`)}
                 >
-                  <h3>{project.name}</h3>
+                  <div className="card-header-row">
+                    <h3>{project.name}</h3>
+
+                    {(project.owner?._id || project.owner) ===
+                      currentUser?.id && (
+                      <button
+                        className="button-danger button-small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteProject(project._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
 
                   <p>{project.description}</p>
 

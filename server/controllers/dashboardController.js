@@ -46,10 +46,13 @@ exports.getDashboard = async (req, res) => {
       priority: "High",
     });
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const overdue = await Task.countDocuments({
       project: { $in: projectIds },
       dueDate: {
-        $lt: new Date(),
+        $lt: today,
       },
       status: {
         $ne: "Done",

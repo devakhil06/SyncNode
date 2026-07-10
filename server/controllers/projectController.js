@@ -141,7 +141,14 @@ exports.getProjectById = async (req, res) => {
   try {
     const project = await Project.findById(req.params.id)
       .populate("owner", "name email")
-      .populate("workspace", "name");
+      .populate({
+        path: "workspace",
+        select: "name members",
+        populate: {
+          path: "members",
+          select: "name email",
+        },
+      });
 
     if (!project) {
       return res.status(404).json({

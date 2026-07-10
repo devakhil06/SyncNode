@@ -1,0 +1,53 @@
+.login-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.login-card {
+    background: #18181B;
+    border: 1px solid #27272A;
+    border-radius: 16px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    display: grid;
+    gap: 16px;
+    padding: 34px;
+    width: min(100%, 390px);
+}
+
+.login-card .auth-brand {
+    color: #FAFAFA;
+    font-size: clamp(42px, 12vw, 58px);
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 0.95;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.auth-title {
+    color: #D4D4D8;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.2;
+    margin: -2px 0 2px;
+    text-align: center;
+}
+
+.login-card button {
+    width: 100%;
+}
+
+.login-card p {
+    color: #A1A1AA;
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-card a {
+    color: #818CF8;
+    font-weight: 700;
+}

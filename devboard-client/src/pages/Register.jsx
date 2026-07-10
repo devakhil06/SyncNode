@@ -36,7 +36,8 @@ function Register() {
   return (
     <div className="login-container">
       <form className="login-card" onSubmit={handleSubmit}>
-        <h1>Create Account</h1>
+        <h1 className="auth-brand">SyncNode</h1>
+        <h2 className="auth-title">Create Account</h2>
 
         <input
           type="text"
@@ -62,9 +63,7 @@ function Register() {
           required
         />
 
-        <button type="submit">
-          Register
-        </button>
+        <button type="submit">Register</button>
 
         <p>
           Already have an account?

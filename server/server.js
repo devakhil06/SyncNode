@@ -1,5 +1,6 @@
 require("dotenv").config();
-
+const http = require("http");
+const { initializeSocket } = require("./socket");
 const express = require("express");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
@@ -12,6 +13,8 @@ const taskRoutes = require("./routes/taskRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const searchRoutes = require("./routes/searchRoutes");
+const attachmentRoutes = require("./routes/attachmentRoutes");
+
 // Connect Database
 connectDB();
 
@@ -26,6 +29,7 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/attachments", attachmentRoutes);
 // Health Check Route
 app.get("/", (req, res) => {
     res.json({
@@ -35,7 +39,10 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+const server = http.createServer(app);
 
-app.listen(PORT, () => {
+initializeSocket(server);
+
+server.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

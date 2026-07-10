@@ -170,3 +170,124 @@ exports.deleteWorkspace = async (req, res) => {
     });
   }
 };
+
+const User = require("../models/User");
+
+exports.inviteMember = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const { workspaceId } = req.params;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is required.",
+      });
+    }
+
+    // Find workspace
+    const workspace = await Workspace.findById(workspaceId);
+
+    if (!workspace) {
+      return res.status(404).json({
+        success: false,
+        message: "Workspace not found.",
+      });
+    }
+
+    // Only owner can invite
+    if (workspace.owner.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Only the workspace owner can invite members.",
+      });
+    }
+
+    // Find user
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    // Already a member?
+    if (
+      workspace.members.some(
+        (member) => member.toString() === user._id.toString()
+      )
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "User is already a member.",
+      });
+    }
+
+    workspace.members.push(user._id);
+
+    await workspace.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Member added successfully.",
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+exports.removeMember = async (req, res) => {
+  try {
+    const { workspaceId, memberId } = req.params;
+
+    const workspace = await Workspace.findById(workspaceId);
+
+    if (!workspace) {
+      return res.status(404).json({
+        success: false,
+        message: "Workspace not found.",
+      });
+    }
+
+    if (workspace.owner.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Only the workspace owner can remove members.",
+      });
+    }
+
+    if (workspace.owner.toString() === memberId) {
+      return res.status(400).json({
+        success: false,
+        message: "Workspace owner cannot be removed.",
+      });
+    }
+
+    workspace.members = workspace.members.filter(
+      (member) => member.toString() !== memberId
+    );
+
+    await workspace.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Member removed successfully.",
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
