@@ -1,6 +1,9 @@
-# 🚀 SyncNode
-
-> A simple place where teams can plan, organize, and build together.
+# SyncNode
+![React](https://img.shields.io/badge/React-19-blue)
+![Node.js](https://img.shields.io/badge/Node.js-22-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-darkgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+> Organize work. Collaborate better. Build faster.
 
 SyncNode is a collaborative project management web application that helps teams keep everything in one place. Instead of switching between chats, notes, and spreadsheets, you can organize your work inside shared workspaces, create projects, manage tasks, and stay updated with your team.
 
@@ -8,7 +11,7 @@ Whether it's a college project, a startup idea, or a freelance team, SyncNode he
 
 ---
 
-# 💡 Why I Built SyncNode
+## Why I Built SyncNode
 
 Every team starts with a simple plan.
 
@@ -30,7 +33,7 @@ Everything lives in one place, so your team can spend more time building and les
 
 ---
 
-# ✨ What You Can Do
+## What You Can Do
 
 - Create your own account
 - Create workspaces for different teams
@@ -43,7 +46,27 @@ Everything lives in one place, so your team can spend more time building and les
 
 ---
 
-# 🌟 Why Use SyncNode?
+## Tech Stack
+
+**Frontend**
+- React
+- Vite
+
+**Backend**
+- Node.js
+- Express.js
+
+**Database**
+- MongoDB
+
+**Other Tools**
+- Socket.IO
+- Cloudinary
+- JWT Authentication
+
+---
+
+## Why Use SyncNode?
 
 - Keeps all your work organized
 - Easy to use
@@ -53,28 +76,35 @@ Everything lives in one place, so your team can spend more time building and les
 
 ---
 
-# 📸 Screenshots
-- Login
-- <img width="1920" height="951" alt="Screenshot_20260711_225256" src="https://github.com/user-attachments/assets/51e57f6a-1967-4872-ab5f-b4345f369a15" />
+## Screenshots
 
-- Dashboard
-- <img width="1920" height="951" alt="Screenshot_20260711_225314" src="https://github.com/user-attachments/assets/314f874c-5a4f-4cac-bb69-556f0d13e90d" />
+### Login
 
-- Workspace
-- <img width="1920" height="944" alt="Screenshot_20260711_225426" src="https://github.com/user-attachments/assets/31ba274e-5765-424f-afec-208692ea20ce" />
+<img width="1920" height="951" alt="Login" src="https://github.com/user-attachments/assets/51e57f6a-1967-4872-ab5f-b4345f369a15" />
 
-- Project
-- <img width="1920" height="944" alt="Screenshot_20260711_225532" src="https://github.com/user-attachments/assets/fda2a432-3b03-4429-ad73-fd36ed42ad48" />
+### Dashboard
 
-- Task Details
-- <img width="1920" height="944" alt="Screenshot_20260711_225629" src="https://github.com/user-attachments/assets/a58aeaee-0787-4f79-a6af-5db6d6fc9423" />
+<img width="1920" height="951" alt="Dashboard" src="https://github.com/user-attachments/assets/314f874c-5a4f-4cac-bb69-556f0d13e90d" />
 
-- <img width="1902" height="944" alt="Screenshot_20260711_230210" src="https://github.com/user-attachments/assets/b0ceafbf-4647-44eb-8bb2-f875265f6ef5" />
+### Workspace
 
+<img width="1920" height="944" alt="Workspace" src="https://github.com/user-attachments/assets/31ba274e-5765-424f-afec-208692ea20ce" />
 
-# 🌱 Future Improvements
+### Project
 
-Some ideas for future updates:
+<img width="1920" height="944" alt="Project" src="https://github.com/user-attachments/assets/fda2a432-3b03-4429-ad73-fd36ed42ad48" />
+
+### Task Details
+
+<img width="1920" height="944" alt="Task Details" src="https://github.com/user-attachments/assets/a58aeaee-0787-4f79-a6af-5db6d6fc9423" />
+
+### Task Attachment
+
+<img width="1902" height="944" alt="Task Attachment" src="https://github.com/user-attachments/assets/b0ceafbf-4647-44eb-8bb2-f875265f6ef5" />
+
+---
+
+## Future Improvements
 
 - Drag and drop tasks
 - Calendar view
@@ -86,7 +116,7 @@ Some ideas for future updates:
 
 ---
 
-# 🤝 Contributions
+## Contributions
 
 Suggestions and contributions are always welcome.
 
@@ -94,7 +124,7 @@ Feel free to fork the project, improve it, and open a Pull Request.
 
 ---
 
-# 👨‍💻 About
+## About
 
 SyncNode is a full-stack web application built as a learning project to understand how modern collaboration tools work.
 
